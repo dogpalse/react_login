@@ -7,6 +7,7 @@ const app = express();
 const { PORT, MONGO_URI } = process.env;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
 	console.log("connected Mongo DB");
@@ -14,6 +15,10 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 	console.error(e);
 });
 
-app.listen(5000, () => {
+app.get('/', (req, res) => {
+  res.send('get url "/"');
+})
+
+app.listen(PORT, () => {
   console.log("Start Server...!");
 })
